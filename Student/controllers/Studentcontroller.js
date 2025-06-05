@@ -142,6 +142,52 @@ const deletestudent = async(req , res) => {
 
 };
 
+const searchstudent = async(req, res) => {
+    try {
+        const { page, limit } = req.body;
+        const { search } = req.query.q
+
+        const pagenum = parseInt(page) || 1;
+        const limitnum = parseInt(limit) || 5;
+
+        const offset = (pagenum - 1) * limitnum;
+
+        const { count, rows: students } = await Student.findAndCountAll({
+            where: {
+                is_deleted: false,
+                [Op.or]: [
+                    { firstName:  { [Op.like]: `%${search}%` } },
+                    { lastName:   { [Op.like]: `%${search}%` } },
+                    { age:        { [Op.like]: `%${search}%` } },
+                    { department: { [Op.like]: `%${search}%` } },
+                ]
+            },
+            offset: offset,
+            limit: limitnum,
+        });
+
+        const totalPages = Math.ceil(count / limitnum);
+
+        res.status(200).json({
+            statuscode: 200,
+            status: true,
+            message: "Student search successfully done",
+            totalRecords: count,
+            totalPages: totalPages,
+            currentPage: pagenum,
+            pageSize: limitnum,
+            data: students,
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            statuscode: 500,
+            status: false,
+            message: error.message
+        });
+    }
+};
+
 
 module.exports = {
     getAllStudents,
@@ -149,5 +195,6 @@ module.exports = {
     createstudent,
     Updatestudent,
     deletestudent,
+    searchstudent,
     
 };

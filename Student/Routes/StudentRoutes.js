@@ -7,6 +7,7 @@ const  {
     createstudent,
     Updatestudent,
     deletestudent,
+    searchstudent,
 } = require("../controllers/Studentcontroller");
 
 const {
@@ -23,6 +24,8 @@ const validaterequest =  require("../middlewares/validateRequest")
 router.get("/" , getAllStudents);
 
 router.get("/:id" , getstudentbyid);
+
+router.get("/search" , searchstudent);
 
 router.post("/create-student", createStudent , validaterequest , createstudent);
 
