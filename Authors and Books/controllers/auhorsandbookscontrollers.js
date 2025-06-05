@@ -1,4 +1,5 @@
 
+const { message } = require("statuses");
 const { Author, Book } = require("../models");
 
 const getAllAuthorsWithBooks = async (req, res) => {
@@ -65,7 +66,7 @@ const getAllBooksWithAuthors = async (req, res) => {
         return res.status(200).json({
           statuscode: 200,
           status: true,
-          message: "Authors fetched successfully",
+          message: "Books fetched successfully",
           Authors: {
             data: Books,
           },
@@ -105,7 +106,7 @@ const getAllAuthorsbyid = async (req, res) => {
         return res.status(200).json({
           statuscode: 200,
           status: true,
-          message: "Authors fetched successfully",
+          message: "Author fetched successfully",
           Authors: {
             data: authors,
           },
@@ -144,7 +145,7 @@ const getAllBooksbyid = async (req, res) => {
         return res.status(200).json({
           statuscode: 200,
           status: true,
-          message: "Authors fetched successfully",
+          message: "Book fetched successfully",
           Authors: {
             data: Books,
           },
@@ -159,14 +160,38 @@ const getAllBooksbyid = async (req, res) => {
 };
 
 const CreateAuthor = async (req, res) => {
-  const {name , email, phone, age, address}  = req.body;
-  const newauthor = await Author.create({name , email, phone, age, address});
-   res.status(201).json({
-            statuscode: 201,
-            status: true,
-            message: "Author Created successfully",
-            data: newauthor,
-        })
+  try{
+        const {name , email, phone, age, address}  = req.body;
+        const newauthor = await Author.create({name , email, phone, age, address});
+        res.status(201).json({
+                  statuscode: 201,
+                  status: true,
+                  message: "Author Created successfully",
+                  data: newauthor,
+              })
+      }
+      catch(error)
+      {
+        res.status(500).json({message: error.message});
+      }
+
+}
+
+const CreateBook = async (req , res) => {
+  try{
+      const {author_id , name, price, pages, publication, genre} =  req.body
+      const newbook = await Book.create({author_id , name, price, pages, publication, genre});
+      res.status(201).json({
+                statuscode: 201,
+                status: true,
+                message: "Book Created successfully",
+                data: newbook,
+            })
+    }
+    catch(error)
+    {
+      res.status(500).json({message: error.message});
+    }
 
 }
 
@@ -178,4 +203,5 @@ module.exports = {
   getAllAuthorsbyid,
   getAllBooksbyid,
   CreateAuthor,
+  CreateBook,
 };
