@@ -79,7 +79,6 @@
     "send": "^1.2.0",
     "seq-queue": "^0.0.5",
     "sequelize": "^6.37.7",
-    "sequelize-cli": "^6.6.3",
     "sequelize-pool": "^7.1.0",
     "serve-static": "^2.2.0",
     "setprototypeof": "^1.2.0",
@@ -106,5 +105,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "sequelize-cli": "^6.6.3"
+  }
 }

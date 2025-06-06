@@ -1,9 +1,11 @@
 const { body } = require("express-validator");
 
 const createauthor = [
-  body("name")
+  body("authorname")
     .notEmpty().withMessage("Name is required")
-    .isLength({ min: 2, max: 50 }).withMessage("Name must be 2-50 characters"),
+    .isString().withMessage("Name must be a string")
+    .isLength({ min: 2, max: 50 }).withMessage("Name must be 2-50 characters")
+    .matches(/^[a-zA-Z\s]+$/).withMessage("Name must contain only alphabets and spaces"),
 
   body("email")
     .notEmpty().withMessage("Email is required")
@@ -23,9 +25,11 @@ const createauthor = [
 ];
 
 const updateauthor = [
-  body("name")
+  body("authorname")
     .notEmpty().withMessage("Name is required")
-    .isLength({ min: 2, max: 50 }).withMessage("Name must be 2-50 characters"),
+    .isString().withMessage("Name must be a string")
+    .isLength({ min: 2, max: 50 }).withMessage("Name must be 2-50 characters")
+    .matches(/^[a-zA-Z\s]+$/).withMessage("Name must contain only alphabets and spaces"),
 
   body("email")
     .notEmpty().withMessage("Email is required")

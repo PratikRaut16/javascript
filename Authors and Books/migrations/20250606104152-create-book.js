@@ -1,26 +1,27 @@
-"use strict";
+'use strict';
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("Books", {
+    await queryInterface.createTable('Books', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+        allowNull: false,
       },
 
       author_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Authors", // Table name (must match actual Authors table)
-          key: "id",
+          model: 'Authors',  // Must match exactly the Authors table name in DB
+          key: 'id',
         },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE",
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',  // Optional but recommended for referential integrity
       },
 
-      name: {
+      bookname: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -63,6 +64,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Books");
+    await queryInterface.dropTable('Books');
   },
 };

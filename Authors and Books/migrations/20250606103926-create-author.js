@@ -7,52 +7,41 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        allowNull: false,
+        allowNull: false
       },
-
-      name: {
+      authorname: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
-
       email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+        unique: true
       },
-
       phone: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
-
       age: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: false
       },
-
       address: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: false
       },
-
       is_deleted: {
         type: Sequelize.BOOLEAN,
-        allowNull: true,
-        defaultValue: false,
+        defaultValue: false
       },
-
       createdAt: {
-        allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
+        allowNull: false
       },
-
       updatedAt: {
-        allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.fn('NOW'),
-      },
+        allowNull: false
+      }
     });
   },
 

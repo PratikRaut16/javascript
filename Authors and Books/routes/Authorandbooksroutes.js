@@ -4,10 +4,15 @@ const router = express.Router();
 const {
     getAllAuthorsWithBooks,
     getAllBooksWithAuthors,
-    getAllAuthorsbyid,
-    getAllBooksbyid,
-    CreateAuthor,
-    CreateBook,
+    getAuthorbyid,
+    getBookbyid,
+    // CreateAuthor,
+    // CreateBook,
+    UpdateAuthor,
+    UpdateBook,
+    DeleteAuthor,
+    DeleteBook,
+    createAuthorWithBooks
 } = require("../controllers/auhorsandbookscontrollers");
 
 const {
@@ -26,13 +31,25 @@ router.get("/Authors" , getAllAuthorsWithBooks);
 
 router.get("/Books" , getAllBooksWithAuthors);
 
-router.get("/Author/:id", getAllAuthorsbyid);
+router.get("/Author/:id", getAuthorbyid);
 
-router.get("/Book/:id", getAllBooksbyid);
+router.get("/Book/:id", getBookbyid);
 
-router.post("/Author/create-author" , createauthor , validaterequest ,CreateAuthor );
+router.post("/AuthorandBooks/create" , createauthor , createbook , validaterequest, createAuthorWithBooks);
 
-router.post("/Book/create-book" , createbook , validaterequest ,CreateBook );
+// router.post("/Author/create-author" , createauthor , validaterequest ,CreateAuthor );
+
+// router.post("/Book/create-book" , createbook , validaterequest ,CreateBook );
+
+router.post("/Author/update-author", updateauthor , validaterequest , UpdateAuthor);
+
+router.post("/Book/update-book" , updatebook , validaterequest ,UpdateBook );
+
+router.post("/Author/delete-author" , DeleteAuthor);
+
+router.post("/Book/delete-book" , DeleteBook);
+
+
 
 
 

@@ -1,13 +1,12 @@
 const { body } = require("express-validator");
 
 const createbook = [
-  body("author_id")
-    .notEmpty().withMessage("Author ID is required")
-    .isInt({ min: 1 }).withMessage("Author ID must be a valid positive integer"),
-
-  body("name")
+  body("bookname")
     .notEmpty().withMessage("Book name is required")
-    .isLength({ min: 2, max: 100 }).withMessage("Book name must be 2-100 characters"),
+    .isString().withMessage("Name must be a string")
+    .isLength({ min: 2, max: 50 }).withMessage("Name must be 2-50 characters")
+    .matches(/^[a-zA-Z0-9\s.,:;'"()\-]+$/).withMessage("Book name contains invalid characters"),
+
 
   body("price")
     .notEmpty().withMessage("Price is required")
@@ -30,15 +29,19 @@ const createbook = [
     .isBoolean().withMessage("is_deleted must be a boolean value"),
 ];
 
+
+
 const updatebook = [
   body("author_id")
     .optional()
     .isInt({ min: 1 }).withMessage("Author ID must be a valid positive integer"),
 
-  body("name")
+  body("bookname")
     .optional()
-    .isLength({ min: 2, max: 100 }).withMessage("Book name must be 2-100 characters"),
-
+    .isString().withMessage("Name must be a string")
+    .isLength({ min: 2, max: 50 }).withMessage("Name must be 2-50 characters")
+    .matches(/^[a-zA-Z\s]+$/).withMessage("Name must contain only alphabets and spaces"),
+    
   body("price")
     .optional()
     .isFloat({ min: 0 }).withMessage("Price must be a positive number"),
