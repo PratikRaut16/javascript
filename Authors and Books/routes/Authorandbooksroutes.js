@@ -6,8 +6,8 @@ const {
     getAllBooksWithAuthors,
     getAuthorbyid,
     getBookbyid,
-    // CreateAuthor,
-    // CreateBook,
+    CreateAuthor,
+    CreateBook,
     UpdateAuthor,
     UpdateBook,
     DeleteAuthor,
@@ -35,11 +35,11 @@ router.get("/Author/:id", getAuthorbyid);
 
 router.get("/Book/:id", getBookbyid);
 
-router.post("/AuthorandBooks/create" , createauthor , createbook , validaterequest, createAuthorWithBooks);
+router.post("/create/author-book" , createauthor, createbook  , validaterequest, createAuthorWithBooks);
 
-// router.post("/Author/create-author" , createauthor , validaterequest ,CreateAuthor );
+router.post("/Author/create-author" , createauthor , validaterequest ,CreateAuthor );
 
-// router.post("/Book/create-book" , createbook , validaterequest ,CreateBook );
+router.post("/Book/create-book" , createbook , validaterequest ,CreateBook );
 
 router.post("/Author/update-author", updateauthor , validaterequest , UpdateAuthor);
 

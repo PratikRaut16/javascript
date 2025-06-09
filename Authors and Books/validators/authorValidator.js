@@ -1,4 +1,5 @@
 const { body } = require("express-validator");
+const { Author } = require("../models"); // adjust the path as needed
 
 const createauthor = [
   body("authorname")
@@ -9,7 +10,14 @@ const createauthor = [
 
   body("email")
     .notEmpty().withMessage("Email is required")
-    .isEmail().withMessage("Invalid email format"),
+    .isEmail().withMessage("Invalid email format")
+    .custom(async (value) => {
+      const existing = await Author.findOne({ where: { email: value } });
+      if (existing) {
+        throw new Error("This email is already exist");
+      }
+      return true;
+    }),
 
   body("phone")
     .notEmpty().withMessage("Phone number is required")

@@ -204,52 +204,50 @@ const getBookbyid = async (req, res) => {
   }
 };
 
-// const CreateAuthor = async (req, res) => {
-//   try{
-//         const {name , email, phone, age, address}  = req.body;
-//         const newauthor = await Author.create({name , email, phone, age, address});
-//         res.status(201).json({
-//                   statuscode: 201,
-//                   status: true,
-//                   message: "Author Created successfully",
-//                   data: newauthor,
-//               })
-//       }
-//       catch(error)
-//       {
-//         res.status(500).json({message: error.message});
-//       }
+const CreateAuthor = async (req, res) => {
+  try{
+        const {authorname , email, phone, age, address}  = req.body;
+        const newauthor = await Author.create({authorname , email, phone, age, address});
+        res.status(201).json({
+                  statuscode: 201,
+                  status: true,
+                  message: "Author Created successfully",
+                  data: newauthor,
+              })
+      }
+      catch(error)
+      {
+        res.status(500).json({message: error.message});
+      }
 
-// }
+}
 
-// const CreateBook = async (req , res) => {
-//   try{
-//       const {author_id , name, price, pages, publication, genre} =  req.body
-//       const newbook = await Book.create({author_id , name, price, pages, publication, genre});
-//       res.status(201).json({
-//                 statuscode: 201,
-//                 status: true,
-//                 message: "Book Created successfully",
-//                 data: newbook,
-//             })
-//     }
-//     catch(error)
-//     {
-//       res.status(500).json({message: error.message});
-//     }
+const CreateBook = async (req , res) => {
+  try{
+      const {author_id , bookname, price, pages, publication, genre} =  req.body
+      const newbook = await Book.create({author_id , bookname, price, pages, publication, genre});
+      res.status(201).json({
+                statuscode: 201,
+                status: true,
+                message: "Book Created successfully",
+                data: newbook,
+            })
+    }
+    catch(error)
+    {
+      res.status(500).json({message: error.message});
+    }
 
-// }
+}
 
 
 const createAuthorWithBooks = async (req, res) => {
   try {
-    const { authorname, email, phone, age, address } = req.body;
-
-    const bookcreation = req.body.books;
+    const { authorname, email, phone, age, address , bookname, price, pages, publication, genre } = req.body;
 
     const newAuthor = await Author.create({ authorname, email, phone, age, address });
 
-    const createdBooks = await Book.bulkCreate({author_id: newAuthor.id ,bookcreation});
+    const createdBooks = await Book.create({author_id: newAuthor.id , bookname, price, pages, publication, genre});
 
     
     res.status(201).json({
@@ -270,8 +268,6 @@ const createAuthorWithBooks = async (req, res) => {
     });
   }
 };
-
-
 
 
 
@@ -409,8 +405,8 @@ module.exports = {
   getAllBooksWithAuthors,
   getAuthorbyid,
   getBookbyid,
-  // CreateAuthor,
-  // CreateBook,
+  CreateAuthor,
+  CreateBook,
   UpdateAuthor,
   UpdateBook,
   DeleteAuthor,
