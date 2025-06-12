@@ -3,7 +3,7 @@ const { where , Op} = require("sequelize");
 
 const getAllCategoriesWithProducts = async (req, res) => {
   try {
-    const {page , limit , search = ""} = req.body;
+    const {page , limit , search = ""} = req.query;
 
     const pagenum = parseInt(page) || 1;
     const limitnum = parseInt(limit) || 5;
@@ -50,7 +50,7 @@ const getAllCategoriesWithProducts = async (req, res) => {
 
 const getAllProductswithCategories = async (req, res) => {
   try {
-    const {page , limit , search = ""} = req.body;
+    const {page , limit , search = ""} = req.query;
 
     const pagenum = parseInt(page) || 1;
     const limitnum = parseInt(limit) || 5;
@@ -96,7 +96,7 @@ const getAllProductswithCategories = async (req, res) => {
 const getcategorybyid = async (req, res) => {
   try {
 
-        const { page, limit } = req.body;
+        const { page, limit } = req.query;
 
         const pagenum = parseInt(page) || 1;
         const limitnum = parseInt(limit) || 5;
@@ -146,7 +146,7 @@ const getcategorybyid = async (req, res) => {
 const getproductbyid = async (req, res) => {
   try {
 
-        const { page, limit } = req.body;
+        const { page, limit } = req.query;
 
         const pagenum = parseInt(page) || 1;
         const limitnum = parseInt(limit) || 5;
