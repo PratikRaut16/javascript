@@ -4,7 +4,7 @@ const { where , Op} = require("sequelize");
 const getAllCategoriesWithProducts = async (req, res) => {
   try {
     const {page , limit , search = ""} = req.query;
-
+    //this is  use for pagination 
     const pagenum = parseInt(page) || 1;
     const limitnum = parseInt(limit) || 5;
 
