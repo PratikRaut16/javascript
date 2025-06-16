@@ -5,7 +5,7 @@ const { removeTicks } = require("sequelize/lib/utils");
 const getAllStudents = async (req, res) => {
   try {
 
-    const { page, limit , search = ""} = req.body;
+    const { page, limit , search = ""} = req.query;
 
     const pagenum = parseInt(page) || 1;
     const limitnum = parseInt(limit) || 5;
