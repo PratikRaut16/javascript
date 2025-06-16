@@ -9,7 +9,7 @@ const { search } = require("../routes/Authorandbooksroutes");
 const getAllAuthorsWithBooks = async (req, res) => {
   try {
 
-        const { page, limit , search=""} = req.body;
+        const { page, limit , search=""} = req.query;
 
         const pagenum = parseInt(page) || 1;
         const limitnum = parseInt(limit) || 5;
@@ -59,7 +59,7 @@ const getAllAuthorsWithBooks = async (req, res) => {
 const getAllBooksWithAuthors = async (req, res) => {
   try {
 
-        const { page, limit , search = ""} = req.body;
+        const { page, limit , search = ""} = req.query;
 
         const pagenum = parseInt(page) || 1;
         const limitnum = parseInt(limit) || 5;
@@ -109,7 +109,7 @@ const getAllBooksWithAuthors = async (req, res) => {
 const getAuthorbyid = async (req, res) => {
   try {
 
-        const { page, limit } = req.body;
+        const { page, limit } = req.query;
 
         const pagenum = parseInt(page) || 1;
         const limitnum = parseInt(limit) || 5;
@@ -159,7 +159,7 @@ const getAuthorbyid = async (req, res) => {
 const getBookbyid = async (req, res) => {
   try {
 
-        const { page, limit } = req.body;
+        const { page, limit } = req.query;
 
         const pagenum = parseInt(page) || 1;
         const limitnum = parseInt(limit) || 5;
