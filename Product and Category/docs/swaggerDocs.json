@@ -1,0 +1,289 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Category and Product API",
+    "version": "1.0.0",
+    "description": "API documentation for managing categories and products."
+  },
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "paths": {
+    "/categories-with-products": {
+      "get": {
+        "summary": "Get all categories with products",
+        "tags": ["Category"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of categories with products"
+          }
+        }
+      }
+    },
+    "/products-with-categories": {
+      "get": {
+        "summary": "Get all products with categories",
+        "tags": ["Product"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of products with categories"
+          }
+        }
+      }
+    },
+    "/categories-with-products-byid/{id}": {
+      "get": {
+        "summary": "Get category with products by ID",
+        "tags": ["Category"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Category and its products" },
+          "404": { "description": "Category not found" }
+        }
+      }
+    },
+    "/products-with-categories-byid/{id}": {
+      "get": {
+        "summary": "Get product with category by ID",
+        "tags": ["Product"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": { "type": "integer" }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Product and its category" },
+          "404": { "description": "Product not found" }
+        }
+      }
+    },
+    "/create-category-with-product": {
+      "post": {
+        "summary": "Create a category with products",
+        "tags": ["Category"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "category_name": { "type": "string" },
+                  "description": { "type": "string" },
+                  "products": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "product_name": { "type": "string" },
+                        "price": { "type": "number" },
+                        "stock_quantity": { "type": "integer" }
+                      },
+                      "required": ["product_name", "price", "stock_quantity"]
+                    }
+                  }
+                },
+                "required": ["category_name", "products"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Category and products created successfully" }
+        }
+      }
+    },
+    "/create-product": {
+      "post": {
+        "summary": "Create a product",
+        "tags": ["Product"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_name": { "type": "string" },
+                  "price": { "type": "number" },
+                  "stock_quantity": { "type": "integer" },
+                  "category_id": { "type": "integer" }
+                },
+                "required": ["product_name", "price", "category_id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Product created successfully" }
+        }
+      }
+    },
+    "/update-category": {
+      "post": {
+        "summary": "Update a category",
+        "tags": ["Category"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "integer" },
+                  "category_name": { "type": "string" },
+                  "description": { "type": "string" },
+                  "status": { "type": "boolean" }
+                },
+                "required": ["id", "category_name"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Category updated successfully" }
+        }
+      }
+    },
+    "/update-product": {
+      "post": {
+        "summary": "Update a product",
+        "tags": ["Product"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "integer" },
+                  "product_name": { "type": "string" },
+                  "price": { "type": "number" },
+                  "stock_quantity": { "type": "integer" },
+                  "category_id": { "type": "integer" }
+                },
+                "required": ["id", "product_name", "price"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Product updated successfully" }
+        }
+      }
+    },
+    "/delete-category": {
+      "post": {
+        "summary": "Delete a category",
+        "tags": ["Category"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "integer" }
+                },
+                "required": ["id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Category deleted successfully" }
+        }
+      }
+    },
+    "/delete-product": {
+      "post": {
+        "summary": "Delete a product",
+        "tags": ["Product"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "integer" }
+                },
+                "required": ["id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Product deleted successfully" }
+        }
+      }
+    }
+  },
+  "components": {}
+}
